@@ -1,0 +1,48 @@
+import psycopg2
+import pygrametl
+from pygrametl.datasources import SQLSource
+from pygrametl.tables import Dimension, SlowlyChangingDimension, FactTable
+
+sales_string = "host='127.0.0.1' dbname='fkluboltp' user='postgres' password='takecare'"
+sales_pgconn = psycopg2.connect(sales_string)
+
+dw_string = "host='127.0.0.1' dbname='fklubdw' user='postgres' password='takecare'"
+dw_pgconn = psycopg2.connect(dw_string)
+
+dw_conn_wrapper = pygrametl.ConnectionWrapper(connection=dw_pgconn)
+
+location_source = SQLSource(connection=sales_pgconn, query="SELECT id, description FROM room")
+sales_source = SQLSource(connection=sales_pgconn, query="SELECT * FROM sale")
+member_source = SQLSource(connection=sales_pgconn, query="select id, year, semester from member, semestergroups where member.id = semestergroups.member_id")
+
+location_dimension = Dimension(
+  name='location',
+  key='locationid',
+  attributes=['name', 'sourceid'],
+  lookupatts=['sourceid'])
+
+for row in location_source:
+  location_dimension.ensure(row, {'sourceid':'id','name':'description'})
+
+member_dimension = Dimension(
+  name='member',
+  key='memberid',
+  attributes=['joinyear', 'study', 'sourceid'],
+  lookupatts=['sourceid'])
+
+for row in member_source:
+  member_dimension.ensure(row, {'sourceid':'id', 'joinyear':'year', 'study':'semester'})
+
+fact_table = FactTable(
+  name='sale',
+  keyrefs=['locationid'],
+  measures=['price'])
+
+#for row in sales_source:
+  #print row
+  #row['locationid'] = location_dimension.ensure(row, {'sourceid':'roomid'})
+  #fact_table.ensure(row)
+
+
+dw_conn_wrapper.commit()
+dw_conn_wrapper.close()
