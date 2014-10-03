@@ -50,7 +50,7 @@ member_dimension = Dimension(
 date_dimension = Dimension(
   name="date",
   key="id",
-  attributes=["year", "month", "day", "vacation", "workday"])
+  attributes=["year", "month", "day", "weekday", "vacation", "workday"])
 
 time_dimension = Dimension(
   name="timeofday",
