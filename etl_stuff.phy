@@ -31,6 +31,16 @@ member_dimension = Dimension(
   attributes=['joinyear', 'study', 'memberid'],
   lookupatts=['memberid'])
 
+date_dimension = Dimension(
+  name="date",
+  key="id",
+  attributes=["year", "month", "day", "vacation", "workday"])
+
+time_dimension = Dimension(
+  name="timeofday",
+  key="id",
+  attributes=["hour", "morning", "afternoon"])
+
 fact_table = FactTable(
   name='sale',
   keyrefs=['locationid'],
