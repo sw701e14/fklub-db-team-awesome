@@ -14,18 +14,18 @@ member_source = SQLSource(connection=sales_pgconn, query="select id, year, semes
 
 location_dimension = Dimension(
   name='location',
-  key='locationid',
-  attributes=['name', 'sourceid'],
-  lookupatts=['sourceid'])
+  key='id',
+  attributes=['name', 'locationid'],
+  lookupatts=['locationid'])
 
 for row in location_source:
   location_dimension.ensure(row, {'sourceid':'id','name':'description'})
 
 member_dimension = Dimension(
   name='member',
-  key='memberid',
-  attributes=['joinyear', 'study', 'sourceid'],
-  lookupatts=['sourceid'])
+  key='id',
+  attributes=['joinyear', 'study', 'memberid'],
+  lookupatts=['memberid'])
 
 for row in member_source:
   member_dimension.ensure(row, {'sourceid':'id', 'joinyear':'year', 'study':'semester'})
