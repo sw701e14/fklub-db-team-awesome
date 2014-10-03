@@ -18,17 +18,11 @@ location_dimension = Dimension(
   attributes=['name', 'locationid'],
   lookupatts=['locationid'])
 
-for row in location_source:
-  location_dimension.ensure(row, {'sourceid':'id','name':'description'})
-
 member_dimension = Dimension(
   name='member',
   key='id',
   attributes=['joinyear', 'study', 'memberid'],
   lookupatts=['memberid'])
-
-for row in member_source:
-  member_dimension.ensure(row, {'sourceid':'id', 'joinyear':'year', 'study':'semester'})
 
 fact_table = FactTable(
   name='sale',
