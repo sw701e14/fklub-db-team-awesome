@@ -94,7 +94,7 @@ def isAfternoon(date):
 for row in sales_source:
   rewrite_timestamp(row)
   row['dateid'] = date_dimension.ensure(row)
-  row['timeid'] = time_dimension.ensure(row)
+  row['timeofdayid'] = time_dimension.ensure(row)
   row['locationid'] = location_dimension.ensure(row, {'name':'locationname'})
   row['productid'] = product_dimension.scdensure(row, {'name':'productname'})
 
