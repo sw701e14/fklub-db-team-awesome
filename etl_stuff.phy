@@ -97,9 +97,8 @@ for row in sales_source:
   row['timeofdayid'] = time_dimension.ensure(row)
   row['locationid'] = location_dimension.ensure(row, {'name':'locationname'})
   row['productid'] = product_dimension.scdensure(row, {'name':'productname'})
+  row['memberid'] = member_dimension.lookup(row)
 
-  #print row
-  #row['locationid'] = location_dimension.ensure(row, {'sourceid':'roomid'})
   fact_table.ensure(row)
 
 
