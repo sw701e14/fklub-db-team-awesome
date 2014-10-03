@@ -93,6 +93,9 @@ def isAfternoon(date):
 
 for row in sales_source:
   rewrite_timestamp(row)
+  row['dateid'] = date_dimension.ensure(row)
+  row['timeid'] = time_dimension.ensure(row)
+  
   #print row
   #row['locationid'] = location_dimension.ensure(row, {'sourceid':'roomid'})
   #fact_table.ensure(row)
