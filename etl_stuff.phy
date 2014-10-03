@@ -64,7 +64,17 @@ fact_table = FactTable(
 
 for row in member_source:
   member_dimension.ensure(row)
-#for row in sales_source:
+
+def rewrite_timestamp(row):
+  src_time = row['timestamp']
+  row['year'] = src_time.year
+  row['month'] = src_time.month
+  row['day'] = src_time.day
+  row['hour'] = src_time.hour
+  row['weekday'] = src_time.weekday()
+
+for row in sales_source:
+  rewrite_timestamp(row)
   #print row
   #row['locationid'] = location_dimension.ensure(row, {'sourceid':'roomid'})
   #fact_table.ensure(row)
