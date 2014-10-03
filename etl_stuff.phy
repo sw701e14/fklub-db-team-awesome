@@ -72,3 +72,5 @@ for row in member_source:
 
 dw_conn_wrapper.commit()
 dw_conn_wrapper.close()
+
+sales_pgconn.close()
