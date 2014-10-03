@@ -70,8 +70,26 @@ def rewrite_timestamp(row):
   row['year'] = src_time.year
   row['month'] = src_time.month
   row['day'] = src_time.day
-  row['hour'] = src_time.hour
   row['weekday'] = src_time.weekday()
+  row['vacation'] = isVacation(src_time)
+  row['workday'] = isWorkday(src_time)
+
+  row['hour'] = src_time.hour
+  row['morning'] = isMorning(src_time)
+  row['afternoon'] = isAfternoon(src_time)
+
+def isVacation(date):
+  return False
+
+def isWorkday(date):
+  return False
+
+#This method should always ignore any granularity finer than hour
+def isMorning(date):
+  return False
+#This method should always ignore any granularity finer than hour
+def isAfternoon(date):
+  return False
 
 for row in sales_source:
   rewrite_timestamp(row)
