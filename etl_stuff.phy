@@ -16,7 +16,6 @@ regexp_replace(semester, '[0-9].*', '') as study
 from member LEFT OUTER JOIN semestergroups on (member.id = semestergroups.member_id)
 order by member.id, length(regexp_replace(semester, '[0-9].*', '')) desc"""
 
-location_source = SQLSource(connection=sales_pgconn, query="SELECT id, description FROM room")
 sales_source = SQLSource(connection=sales_pgconn, query="SELECT * FROM sale")
 member_source = SQLSource(connection=sales_pgconn, query=member_SQL)
 
