@@ -15,9 +15,18 @@ year as joinyear,
 regexp_replace(semester, '[0-9].*', '') as study
 from member LEFT OUTER JOIN semestergroups on (member.id = semestergroups.member_id)
 order by member.id, length(regexp_replace(semester, '[0-9].*', '')) desc"""
-
-sales_source = SQLSource(connection=sales_pgconn, query="SELECT * FROM sale")
 member_source = SQLSource(connection=sales_pgconn, query=member_SQL)
+
+#A postgres query that gets all data except semester-info and member-info.
+sales_SQL = """select
+member.id as memberid, member.year as joinyear, --Member Info
+product.name as productname, --Product Info
+room.name as locationname, room.id as locationid, --Location Info
+sale.timestamp, sale.price --Sale Info
+from member, product, sale, room
+where member.id = sale.member_id and product.id = sale.product_id and room.id = sale.room_id
+order by timestamp"""
+sales_source = SQLSource(connection=sales_pgconn, query=sales_SQL)
 
 product_dimension = SlowlyChangingDimension(
   name="product",
