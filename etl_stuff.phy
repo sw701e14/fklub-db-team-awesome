@@ -59,7 +59,7 @@ time_dimension = Dimension(
 
 fact_table = FactTable(
   name='sale',
-  keyrefs=['locationid'],
+  keyrefs=['productid', 'memberid', 'locationid', 'dateid', 'timeofdayid'],
   measures=['price'])
 
 for row in member_source:
@@ -100,7 +100,7 @@ for row in sales_source:
 
   #print row
   #row['locationid'] = location_dimension.ensure(row, {'sourceid':'roomid'})
-  #fact_table.ensure(row)
+  fact_table.ensure(row)
 
 
 dw_conn_wrapper.commit()
