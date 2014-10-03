@@ -12,6 +12,13 @@ location_source = SQLSource(connection=sales_pgconn, query="SELECT id, descripti
 sales_source = SQLSource(connection=sales_pgconn, query="SELECT * FROM sale")
 member_source = SQLSource(connection=sales_pgconn, query="select id, year, semester from member, semestergroups where member.id = semestergroups.member_id")
 
+product_dimension = SlowlyChangingDimension(
+  name="product",
+  key="id",
+  attributes=["name", "price", "version"],
+  lookupatts=["name"],
+  versionatt="version")
+
 location_dimension = Dimension(
   name='location',
   key='id',
