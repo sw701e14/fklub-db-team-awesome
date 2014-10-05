@@ -25,9 +25,10 @@ ALTER TABLE date
 
 CREATE TABLE location
 (
-  id smallint,
+  id serial NOT NULL,
   name character varying(30),
   locationid smallint
+  CONSTRAINT location_pkey PRIMARY KEY (id)
 )
 WITH (
   OIDS=FALSE
@@ -77,7 +78,7 @@ ALTER TABLE product
 
 CREATE TABLE sale
 (
-  id integer NOT NULL DEFAULT nextval('sales_id_seq'::regclass),
+  id serial NOT NULL,
   productid smallint,
   memberid smallint,
   locationid smallint,
