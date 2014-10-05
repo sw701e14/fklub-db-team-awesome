@@ -1,1 +1,56 @@
-/usr/share/tomcat/webapps/mondrian/WEB-INF/queries/FKlubDW.xml
+<?xml version="1.0"?>
+<Schema name="FKlubDW">
+
+ <Cube name="Sales">
+   <Table name="sale"/>
+   <Hierarchy hasAll="true" allMemberName="All sales" primaryKey="id">
+   <Level name="ID" column="id" type="Integer" uniqueMembers="true"/>
+   <Level name="Price" column="price" type="Numeric" uniqueMembers="false"/>
+ </Hierarchy>
+     <Dimension name="Member" foreignKey="memberid">
+       <Hierarchy hasAll="true" allMemberName="All members" primaryKey="memberid">
+	 <Table name="member"/>
+	 <Level name="ID" column="id" type="Integer" uniqueMembers="true"/>
+	 <Level name="JoinYear" column="the_year_joined" type="Integer" uniqueMembers="false"/>
+	 <Level name="Study" column="the_study" type="String" uniqueMembers="false"/>
+       </Hierarchy>
+     </Dimension>
+     <Dimension name="Date" foreignKey="dateid" type="TimeDimension">
+       <Hierarchy hasAll="true" allMemberName="All dates" primaryKey="dateid">
+	 <Table name="date"/>
+	 <Level name="ID" column="id" type="Integer" uniqueMembers="true"/>
+	 <Level name="Year" column="year" levelType="TimeYears" type="Numeric" uniqueMembers="true"/>
+	 <Level name="Month" column="month" levelType="TimeMonths" type="Numeric" uniqueMembers="false"/>
+	 <Level name="Day" column="day" levelType="TimeDays" type="Numeric" uniqueMembers="false"/>
+	 <Level name="VacationDay" column="is_vacation_day" type="Boolean" uniqueMembers="false"/>
+	 <Level name="WorkDay" column="is_work_day" type="Boolean" uniqueMembers="false"/>
+       </Hierarchy>
+       </Dimension>
+     <Dimension name="TimeOfDay" foreignKey="timeofdayid">
+       <Hierarchy hasAll="true" allMemberName="All time of day" primaryKey="timeofdayid">
+	 <Table name="timeofday"/>
+	 <Level name="ID" coumn="id" type="Integer" uniqueMembers="true"/>
+	 <Level name="Morning" column="is_morning" type="Boolean" uniqueMembers="false"/>
+	 <Level name="Afternoon" column="is_afternoon" type="Boolean" uniqueMembers="false"/>
+	 <Level name="Hour" column="hour" type="Integer" uniqueMembers="false"/>
+       </Hierarchy>
+     </Dimension>
+       <Dimension name="Product" foreignKey="productid">
+	 <Hierarchy hasAll="true" allMemberName="All products" primaryKey="productid">
+	   <Table name="product"/>
+	   <Level name="ID" column="id" type="Integer" uniqueMembers="true"/>
+	   <Level name="Name" column="name" type="String" uniqueMembers="false"/>
+	   <Level name="Price" column="price" type="Numeric" uniqueMembers="false"/>
+	   <Level name="Version" column="version" type="Integer" uniqueMembers="false"/>
+	 </Hierarchy>
+	 </Dimension>
+	 <Dimension name="Location" foreignKey="locationid">
+	   <Hierarchy hasAll="true" allMemberName="All locations" primaryKey="locationid">
+	   <Level name="ID" column="id" type="Integer" uniqueMembers="true"/>
+	   <Level name="Name" column="name" type="String" uniqueMembers="false"/>
+	   </Hierarchy>
+	 </Dimension>
+	   
+	 <Measure name="Price" column="units_sold" aggregator="sum"/>-
+ </Cube>
+ </Schema>
