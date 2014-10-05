@@ -22,12 +22,12 @@ location_source = SQLSource(connection=sales_pgconn, query=location_SQL)
 
 #A postgres query that gets all data except semester-info and member-info.
 sales_SQL = """select
-member.id as memberid, member.year as joinyear, --Member Info
+member_id as memberid, --Member Info
 product.name as productname, --Product Info
-room.name as locationname, room.id as locationid, --Location Info
+room_id as locationid, --Location Info
 sale.timestamp, sale.price --Sale Info
-from member, product, sale, room
-where member.id = sale.member_id and product.id = sale.product_id and room.id = sale.room_id
+from product, sale
+where product.id = sale.product_id
 order by timestamp"""
 sales_source = SQLSource(connection=sales_pgconn, query=sales_SQL)
 
