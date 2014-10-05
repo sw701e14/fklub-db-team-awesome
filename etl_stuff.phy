@@ -17,6 +17,9 @@ from member LEFT OUTER JOIN semestergroups on (member.id = semestergroups.member
 order by member.id, length(regexp_replace(semester, '[0-9].*', '')) desc"""
 member_source = SQLSource(connection=sales_pgconn, query=member_SQL)
 
+location_SQL = """select id as locationid, description as name from room"""
+location_source = SQLSource(connection=sales_pgconn, query=location_SQL)
+
 #A postgres query that gets all data except semester-info and member-info.
 sales_SQL = """select
 member.id as memberid, member.year as joinyear, --Member Info
@@ -65,6 +68,9 @@ fact_table = FactTable(
 for row in member_source:
   member_dimension.ensure(row)
 
+for row in location_source:
+  location_dimension.ensure(row)
+
 def rewrite_timestamp(row):
   src_time = row['timestamp']
   row['year'] = src_time.year
@@ -95,7 +101,7 @@ for row in sales_source:
   rewrite_timestamp(row)
   row['dateid'] = date_dimension.ensure(row)
   row['timeofdayid'] = time_dimension.ensure(row)
-  row['locationid'] = location_dimension.ensure(row, {'name':'locationname'})
+  row['locationid'] = location_dimension.lookup(row)
   row['productid'] = product_dimension.scdensure(row, {'name':'productname'})
   row['memberid'] = member_dimension.lookup(row)
 
