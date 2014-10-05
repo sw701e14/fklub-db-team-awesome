@@ -97,6 +97,7 @@ def isMorning(date):
 def isAfternoon(date):
   return date.hour >= 12 and date.hour <= 16
 
+count = 0
 for row in sales_source:
   rewrite_timestamp(row)
   row['dateid'] = date_dimension.ensure(row)
@@ -106,6 +107,9 @@ for row in sales_source:
   row['memberid'] = member_dimension.lookup(row)
 
   fact_table.ensure(row)
+  count = count + 1
+  if (count % 100) == 0:
+    print 'Completed ', count, ' rows.'
 
 
 dw_conn_wrapper.commit()
