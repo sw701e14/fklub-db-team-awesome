@@ -106,9 +106,9 @@ for row in sales_source:
   row['productid'] = product_dimension.scdensure(row, {'name':'productname'})
   row['memberid'] = member_dimension.lookup(row)
 
-  fact_table.ensure(row)
+  fact_table.insert(row)
   count = count + 1
-  if (count % 100) == 0:
+  if (count % 1000) == 0:
     print 'Completed ', count, ' rows.'
 
 
