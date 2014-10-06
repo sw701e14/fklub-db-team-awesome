@@ -1,3 +1,4 @@
+from time import time
 import psycopg2
 import pygrametl
 from pygrametl.datasources import SQLSource
@@ -97,6 +98,8 @@ def isMorning(date):
 def isAfternoon(date):
   return date.hour >= 12 and date.hour <= 16
 
+t0 = time()
+
 count = 0
 for row in sales_source:
   rewrite_timestamp(row)
@@ -111,6 +114,8 @@ for row in sales_source:
   if (count % 1000) == 0:
     print 'Completed ', count, ' rows.'
 
+t1 = time()
+print 'Inserted everything in %f' %(t1-t0)
 
 dw_conn_wrapper.commit()
 dw_conn_wrapper.close()
