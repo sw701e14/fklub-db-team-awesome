@@ -67,6 +67,7 @@ fact_table = FactTable(
   measures=['price'])
 
 for row in member_source:
+  if row['study'] == None: row['study'] = "Unknown"
   member_dimension.ensure(row)
 
 for row in location_source:
