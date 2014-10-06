@@ -10,7 +10,7 @@ CREATE TABLE date
   day smallint,
   vacation boolean,
   workday boolean,
-  weekday smallint,
+  weekday character varying(20),
   CONSTRAINT date_pkey PRIMARY KEY (id)
 )
 WITH (
