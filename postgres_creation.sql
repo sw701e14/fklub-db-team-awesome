@@ -1,6 +1,6 @@
 -- Table: date
 
--- DROP TABLE date;
+DROP TABLE date;
 
 CREATE TABLE date
 (
@@ -21,7 +21,7 @@ ALTER TABLE date
 
 -- Table: location
 
--- DROP TABLE location;
+DROP TABLE location;
 
 CREATE TABLE location
 (
@@ -38,7 +38,7 @@ ALTER TABLE location
 
 -- Table: member
 
--- DROP TABLE member;
+DROP TABLE member;
 
 CREATE TABLE member
 (
@@ -56,7 +56,7 @@ ALTER TABLE member
 
 -- Table: product
 
--- DROP TABLE product;
+DROP TABLE product;
 
 CREATE TABLE product
 (
@@ -74,7 +74,7 @@ ALTER TABLE product
 
 -- Table: sale
 
--- DROP TABLE sale;
+DROP TABLE sale;
 
 CREATE TABLE sale
 (
@@ -95,7 +95,7 @@ ALTER TABLE sale
 
 -- Table: timeofday
 
--- DROP TABLE timeofday;
+DROP TABLE timeofday;
 
 CREATE TABLE timeofday
 (
