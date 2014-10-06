@@ -45,6 +45,6 @@
 	   </Hierarchy>
 	 </Dimension>
 	   
-	 <Measure name="Units Sold" column="price" aggregator="sum"/>
+	 <Measure name="Price" column="price" aggregator="sum"/>
  </Cube>
  </Schema>
