@@ -1,7 +1,7 @@
 import psycopg2
 import pygrametl
 from pygrametl.datasources import SQLSource
-from pygrametl.tables import Dimension, SlowlyChangingDimension, FactTable
+from pygrametl.tables import CachedDimension, SlowlyChangingDimension, FactTable
 
 sales_pgconn = psycopg2.connect("host=localhost dbname='fkluboltp' user='postgres' password='takecare'")
 dw_pgconn = psycopg2.connect("host=localhost dbname='fklubdw' user='postgres' password='takecare'")
@@ -38,24 +38,24 @@ product_dimension = SlowlyChangingDimension(
   lookupatts=["name"],
   versionatt="version")
 
-location_dimension = Dimension(
+location_dimension = CachedDimension(
   name='location',
   key='id',
   attributes=['name', 'locationid'],
   lookupatts=['locationid'])
 
-member_dimension = Dimension(
+member_dimension = CachedDimension(
   name='member',
   key='id',
   attributes=['joinyear', 'study', 'memberid'],
   lookupatts=['memberid'])
 
-date_dimension = Dimension(
+date_dimension = CachedDimension(
   name="date",
   key="id",
   attributes=["year", "month", "day", "weekday", "vacation", "workday"])
 
-time_dimension = Dimension(
+time_dimension = CachedDimension(
   name="timeofday",
   key="id",
   attributes=["hour", "morning", "afternoon"])
