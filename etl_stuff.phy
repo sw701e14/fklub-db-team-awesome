@@ -77,7 +77,7 @@ def rewrite_timestamp(row):
   row['year'] = src_time.year
   row['month'] = src_time.month
   row['day'] = src_time.day
-  row['weekday'] = src_time.weekday()
+  row['weekday'] = getWeekday(src_time.weekday())
   row['vacation'] = isVacation(src_time)
   row['workday'] = isWorkday(src_time)
 
@@ -97,6 +97,17 @@ def isMorning(date):
 #This method should always ignore any granularity finer than hour
 def isAfternoon(date):
   return date.hour >= 12 and date.hour <= 16
+
+def getWeekday(weekday):
+  if weekday == 0: return "Monday"
+  if weekday == 1: return "Tuesday"
+  if weekday == 2: return "Wednesday"
+  if weekday == 3: return "Thursday"
+  if weekday == 4: return "Friday"
+  if weekday == 5: return "Saturday"
+  if weekday == 6: return "Sunday"
+
+  return "No Day"
 
 t0 = time()
 
