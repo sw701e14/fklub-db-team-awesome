@@ -86,7 +86,7 @@ def rewrite_timestamp(row):
   row['afternoon'] = isAfternoon(src_time)
 
 def isVacation(date):
-  return False
+  return date.month == 7 or date.month == 8
 
 def isWorkday(date):
   return False
